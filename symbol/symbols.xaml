@@ -1,0 +1,1256 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:esri="http://schemas.esri.com/arcgis/client/2009">
+
+    <esri:SimpleMarkerSymbol x:Key="MediumMarkerSymbol" Color="#FF00BB00" Size="12" Style="Circle" />
+    <esri:SimpleFillSymbol x:Key="BufferSymbol" Fill="#11110000" BorderBrush="Red" BorderThickness="8"  />
+    <esri:SimpleFillSymbol x:Key="FocusSymbol" Fill="#5544DD00" BorderBrush="#66CC0000" BorderThickness="3"  />
+    <esri:SimpleFillSymbol x:Key="CarBufferSymbol" Fill="#2244BB00" BorderBrush="#66CC0000" BorderThickness="1"  />
+    <esri:SimpleFillSymbol x:Key="ParcelSymbol" Fill="#440000FF" BorderBrush="Blue" BorderThickness="2" />
+    <esri:SimpleMarkerSymbol x:Key="CarPositionSymbol" Size="15" Color="#99FF00BB" />
+    <esri:SimpleLineSymbol x:Key="SLSymbol" Color="Red" Width ="4" Style="Dot" />
+
+    <esri:SimpleLineSymbol x:Key="NORMAL" Color="#CC00FD00"  Width="8" Style="Solid" />
+    <esri:SimpleLineSymbol x:Key="MIDDLE" Color="#CCFFFF00" Width="8" Style="Solid" />
+    <esri:SimpleLineSymbol x:Key="BUSY" Color="#CCFF4000" Width="8" Style="Solid" />
+    
+    <esri:SimpleLineSymbol x:Key="DefaultLineSymbol" Color="Green" Width="8"></esri:SimpleLineSymbol>
+
+    <esri:SimpleLineSymbol x:Key="SLSymbolGJ" Color="Red" Width ="8" Style="Solid" />
+    <!--LPY 2015-3-25 12:54:00 添加 测距、测面积相关-->
+    <esri:TextSymbol x:Key="TxtSymbol" FontSize="48" Foreground="Red" FontWeight="Bold"></esri:TextSymbol>
+    <esri:SimpleFillSymbol x:Key="AreaSymbol" Fill="LightBlue" BorderBrush="Blue" BorderThickness="8"></esri:SimpleFillSymbol>
+    <esri:SimpleLineSymbol x:Key="LengthSymbol" Color="Blue" Width="8" Style="Solid"></esri:SimpleLineSymbol>
+
+
+    <esri:SimpleFillSymbol x:Key="DrawFillSymbol" Fill="#330000FF" BorderBrush="Blue" BorderThickness="5" />
+    <esri:MarkerSymbol x:Key="MSShelter" OffsetX="100" OffsetY="110">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid x:Name="grid" Width="200">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="60"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Width="{Binding}" Background="Green" CornerRadius="10" BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Grid.Row="0" TextAlignment="Center" Text="{Binding Attributes[MC]}" Foreground="White" FontSize="48" Margin="0"></TextBlock>
+                    </Border>
+                    <Ellipse Grid.Row="1" Fill="Red" Height="60" Width="60" VerticalAlignment="Center" HorizontalAlignment="Center"></Ellipse>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:MarkerSymbol>
+
+    <esri:SimpleMarkerSymbol x:Key="NewMarkerSymbol" Size="16">
+        <esri:SimpleMarkerSymbol.Color>
+            <RadialGradientBrush>
+                <GradientStop Color="LightGreen" Offset="0.578"></GradientStop>
+                <GradientStop Color="#FF0E0D07" Offset="1"></GradientStop>
+            </RadialGradientBrush>
+        </esri:SimpleMarkerSymbol.Color>
+    </esri:SimpleMarkerSymbol>
+
+    
+    <!--LPY 2015-8-11 16:46:31 添加 聚合图使用-->
+    <esri:SimpleMarkerSymbol x:Key="ClusterMarkerSymbol" Color="#FF006600" Size="30" Style="Circle" />
+    <LinearGradientBrush x:Key="BlueGradient" MappingMode="RelativeToBoundingBox">
+                <GradientStop Color="#990011FF" Offset="0"/>
+                <GradientStop Color="#990055FF" Offset="0.25"/>
+                <GradientStop Color="#990099FF" Offset="0.5"/>
+                <GradientStop Color="#9900CCFF" Offset="0.75"/>
+                <GradientStop Color="#9900FFFF" Offset="1"/>
+            </LinearGradientBrush>
+    
+    <ControlTemplate x:Key="MarkerControlTemplate">
+        <Grid>
+            <Ellipse Fill="Red" Width="50" Height="50" Stroke="Black" StrokeThickness="0.5"></Ellipse>
+        </Grid>
+    </ControlTemplate>
+    <esri:SimpleMarkerSymbol x:Key="MySmallMarker" Color="#FFFF8B00" Size="6" Style="Circle" ControlTemplate="{StaticResource MarkerControlTemplate}"></esri:SimpleMarkerSymbol>
+    <esri:SimpleMarkerSymbol x:Key="MyMediumMarker" Color="#FFFFA300" Size="10" Style="Circle" ControlTemplate="{StaticResource MarkerControlTemplate}"></esri:SimpleMarkerSymbol>
+    <esri:SimpleMarkerSymbol x:Key="MyLargeMarker" Color="#FFFFC300" Size="14" Style="Circle" ControlTemplate="{StaticResource MarkerControlTemplate}"></esri:SimpleMarkerSymbol>
+    <esri:ClassBreaksRenderer x:Key="MyClassBreaksRendererPoints">
+        <esri:ClassBreaksRenderer.Classes>
+            <esri:ClassBreakInfo MinimumValue="0" MaximumValue="10" Symbol="{StaticResource MySmallMarker}"></esri:ClassBreakInfo>
+            <esri:ClassBreakInfo MinimumValue="10" MaximumValue="50" Symbol="{StaticResource MyMediumMarker}"></esri:ClassBreakInfo>
+            <esri:ClassBreakInfo MinimumValue="50" MaximumValue="1000000" Symbol="{StaticResource MyLargeMarker}"></esri:ClassBreakInfo>
+        </esri:ClassBreaksRenderer.Classes>
+    </esri:ClassBreaksRenderer>
+    
+    
+    
+    <!--<esri:SimpleMarkerSymbol x:Key="BiggerNewMarkerSymbol" Size="24">
+        <esri:SimpleMarkerSymbol.Color>
+            <RadialGradientBrush>
+                <GradientStop Color="Blue" Offset="0.578"></GradientStop>
+                <GradientStop Color="#FF0E0D07" Offset="1"></GradientStop>
+            </RadialGradientBrush>
+        </esri:SimpleMarkerSymbol.Color>
+    </esri:SimpleMarkerSymbol>-->
+
+    <esri:SimpleFillSymbol x:Key="BiggerNewMarkerSymbol" Fill="#2244BB00" BorderBrush="Green" BorderThickness="8"/>
+
+    <esri:PictureMarkerSymbol x:Key="REDFLAG"  OffsetX="18" OffsetY="18">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Image  Source="/images/red36.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    <esri:PictureMarkerSymbol x:Key="YELLOWFLAG"  OffsetX="18" OffsetY="18">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Image  Source="/images/yellow36.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    <esri:PictureMarkerSymbol x:Key="GREENFLAG"  OffsetX="18" OffsetY="18">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Image  Source="/images/green36.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    
+    <!--定义案件点-->
+    <esri:MarkerSymbol x:Key="CrimePointSymbol" >
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Canvas>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <Storyboard RepeatBehavior="Forever">
+                                    <DoubleAnimation BeginTime="0" Storyboard.TargetName="ellipse" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" From="1" To="10" Duration="00:00:01" />
+                                    <DoubleAnimation BeginTime="0" Storyboard.TargetName="ellipse" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" From="1" To="10" Duration="00:00:01" />
+                                    <DoubleAnimation BeginTime="0" Storyboard.TargetName="ellipse" Storyboard.TargetProperty="(UIElement.Opacity)" From="1" To="0" Duration="00:00:01" />
+                                </Storyboard>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <Ellipse Height="20" Width="20" Canvas.Left="-10" Canvas.Top="-10"  RenderTransformOrigin="0.5,0.5" x:Name="ellipse" IsHitTestVisible="False">
+                        <Ellipse.RenderTransform>
+                            <ScaleTransform />
+                        </Ellipse.RenderTransform>
+                        <Ellipse.Fill>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#00FF0000" />
+                                <GradientStop Color="#FFFF0000" Offset="0.25"/>
+                                <GradientStop Color="#00FF0000" Offset="0.5"/>
+                                <GradientStop Color="#FFFF0000" Offset="0.75"/>
+                                <GradientStop Color="#00FF0000" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <!--Static symbol on top-->
+                    <Ellipse Height="20" Width="20" Canvas.Left="-10" Canvas.Top="-10" Fill="#FFFF0000" x:Name="ellipse1"/>
+                </Canvas>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:MarkerSymbol>
+ 
+    <esri:MarkerSymbol x:Key="NEWGPS">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Canvas>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <Storyboard RepeatBehavior="Forever">
+                                    <DoubleAnimation BeginTime="0" Storyboard.TargetName="ellipse" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" From="1" To="10" Duration="00:00:01" />
+                                    <DoubleAnimation BeginTime="0" Storyboard.TargetName="ellipse" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" From="1" To="10" Duration="00:00:01" />
+                                    <DoubleAnimation BeginTime="0" Storyboard.TargetName="ellipse" Storyboard.TargetProperty="(UIElement.Opacity)" From="1" To="0" Duration="00:00:01" />
+                                </Storyboard>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <Ellipse Height="20" Width="20" Canvas.Left="-10" Canvas.Top="-10"  RenderTransformOrigin="0.5,0.5" x:Name="ellipse" IsHitTestVisible="False">
+                        <Ellipse.RenderTransform>
+                            <ScaleTransform />
+                        </Ellipse.RenderTransform>
+                        <Ellipse.Fill>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#000000BB" />
+                                <GradientStop Color="#FF0000BB" Offset="0.25"/>
+                                <GradientStop Color="#000000BB" Offset="0.5"/>
+                                <GradientStop Color="#FF0000BB" Offset="0.75"/>
+                                <GradientStop Color="#000000BB" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <!--Static symbol on top-->
+                    <Ellipse Height="20" Width="20" Canvas.Left="-10" Canvas.Top="-10" Fill="#FF0000BB" x:Name="ellipse1"/>
+                </Canvas>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:MarkerSymbol>
+
+    <!--定义连接线-->
+    <esri:LineSymbol x:Key="LinkLineSymbol">
+        <esri:LineSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <Storyboard RepeatBehavior="Forever">
+                                    <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetName="Element" Storyboard.TargetProperty="StrokeDashOffset" To="1000" Duration="0:3:0" />
+                                </Storyboard>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <!--For polyline and polygon template, a Path lement with the name "Element" is required-->
+                    <Path x:Name="Element" StrokeDashArray="2,2" StrokeDashOffset="0" Stroke="Red" StrokeThickness="8" />
+                </Grid>
+            </ControlTemplate>
+        </esri:LineSymbol.ControlTemplate>
+    </esri:LineSymbol>
+
+    <!--民防预案线条1-->
+    <esri:LineSymbol x:Key="MFYALine1">
+        <esri:LineSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <Storyboard RepeatBehavior="Forever">
+                                    <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetName="Element" Storyboard.TargetProperty="StrokeDashOffset" To="1000" Duration="0:3:0" />
+                                </Storyboard>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <!--For polyline and polygon template, a Path lement with the name "Element" is required-->
+                    <Path x:Name="Element" StrokeDashArray="2,2" StrokeDashOffset="0" Stroke="#FFF59623" StrokeThickness="24" />
+                </Grid>
+            </ControlTemplate>
+        </esri:LineSymbol.ControlTemplate>
+    </esri:LineSymbol>
+
+    <!--LPY 2015-1-23 19:48:07 添加 视频窗号符号定义-->
+    <esri:MarkerSymbol x:Key="SPNum" OffsetX="30" OffsetY="10">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid x:Name="grid">
+                    <TextBlock Width="60" Background="Green" TextAlignment="Center" Text="{Binding Attributes[ID]}" Foreground="Yellow" FontSize="48" Margin="0"></TextBlock>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:MarkerSymbol>
+    
+    <!--定义各类警力符号-->
+    <!--警车-->
+    <!--add by lzd-->
+    <!--update by lpy -->
+    <esri:MarkerSymbol x:Key="policecar0" OffsetX="80" OffsetY="140">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+
+                    <Grid x:Name="grid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="100"/>
+                        </Grid.RowDefinitions>
+
+                    <TextBlock Background="Green" TextAlignment="Center" Text="{Binding Attributes[num]}"  Foreground="White"   FontSize="30" Margin="0" Grid.Row="0" Grid.Column="0"/>
+                    <Image Source="/images/icons/汽车b96.png" Grid.Row="1" Grid.Column="0"  Height="96" Width="96" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <!--<Image.LayoutTransform>
+                                <RotateTransform  Angle="{Binding Attributes[angle]}"/>
+                            </Image.LayoutTransform>-->
+                        </Image>
+                    </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:MarkerSymbol>
+    
+    <esri:MarkerSymbol x:Key="policecar1" OffsetX="80" OffsetY="140">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                    <Grid x:Name="grid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="100"/>
+                        </Grid.RowDefinitions>
+
+                    <TextBlock Background="Green" TextAlignment="Center" Text="{Binding Attributes[num]}"  Foreground="White" FontSize="30" Margin="0" Grid.Row="0" Grid.Column="0"/>
+                    <Image Source="/images/icons/汽车d96.png" Grid.Row="1" Grid.Column="0" Height="96" Width="96" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <!--<Image.LayoutTransform>
+                                <RotateTransform  Angle="{Binding Attributes[angle]}"/>
+                            </Image.LayoutTransform>-->
+                        </Image>
+                    </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:MarkerSymbol>
+
+    <esri:MarkerSymbol x:Key="policecar2" OffsetX="80" OffsetY="140">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                    <Grid x:Name="grid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="100"/>
+                        </Grid.RowDefinitions>
+
+                    <TextBlock Background="Green" TextAlignment="Center" Text="{Binding Attributes[num]}"  Foreground="White"  FontSize="30" Margin="0" Grid.Row="0" Grid.Column="0"/>
+                    <Image Source="/images/icons/汽车a96.png"  Grid.Row="1" Grid.Column="0" Height="96" Width="96" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <!--<Image.LayoutTransform>
+                                <RotateTransform  Angle="{Binding Attributes[angle]}"/>
+                            </Image.LayoutTransform>-->
+                        </Image>
+                    </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:MarkerSymbol>
+
+
+    <!--<esri:PictureMarkerSymbol x:Key="policecar00" OffsetX="75" OffsetY="70"> 
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBox BorderThickness="2" TextAlignment="Justify" Background="Green" Text="{Binding Attributes[num]}"  Foreground="White"   FontStyle="Normal" FontSize="20" Margin="0" Grid.Row="0" Grid.Column="0"/>
+                    <Image Source="/images/car3.png" Grid.Row="1" Grid.Column="0">
+                        --><!--<Image.LayoutTransform>                            
+                            <RotateTransform  Angle="{Binding Attributes[angle]}"/>
+                        </Image.LayoutTransform>--><!--
+                    </Image>
+                </Grid> 
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <esri:PictureMarkerSymbol x:Key="policecar01"  OffsetX="75" OffsetY="70">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Background="Green" TextAlignment="Center" Text="{Binding Attributes[num]}" Foreground="White"  FontStyle="Normal" FontSize="20" Margin="0"  Grid.Row="0" Grid.Column="0"/>
+                    <Image  Source="/images/car1.png" Grid.Row="1" Grid.Column="0">
+                        <Image.LayoutTransform>
+                            <RotateTransform Angle="{Binding Attributes[angle]}"/>
+                        </Image.LayoutTransform>
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <esri:PictureMarkerSymbol x:Key="policecar02"  OffsetX="75" OffsetY="70">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Background="Green" TextAlignment="Center" Text="{Binding Attributes[num]}" Foreground="White"  FontStyle="Normal" FontSize="20" Margin="0"  Grid.Row="0" Grid.Column="0"/>
+                    <Image  Source="/images/car0.png" Grid.Row="1" Grid.Column="0">
+                        <Image.LayoutTransform>
+                            <RotateTransform Angle="{Binding Attributes[angle]}"/>
+                        </Image.LayoutTransform>
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>-->
+
+
+    <!--警用摩托-->
+    <esri:PictureMarkerSymbol x:Key="policemoto0"  OffsetX="80" OffsetY="140">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Background="Blue" TextAlignment="Center" Text="{Binding Attributes[num]}"  Foreground="White"  FontSize="20" Margin="0" Grid.Row="0" Grid.Column="0"/>
+                    <Image Source="/images/icons/摩托车b96.png" Grid.Row="1" Grid.Column="0" Height="96" Width="96" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <!--<Image.LayoutTransform>
+                            <RotateTransform Angle="{Binding Attributes[angle]}"/>
+                        </Image.LayoutTransform>-->
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <esri:PictureMarkerSymbol x:Key="policemoto1"  OffsetX="80" OffsetY="140">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Background="Blue" TextAlignment="Center" Text="{Binding Attributes[num]}"  Foreground="White"  FontSize="20" Margin="0" Grid.Row="0" Grid.Column="0"/>
+                    <Image Source="/images/icons/摩托车a96.png" Grid.Row="1" Grid.Column="0" Height="96" Width="96" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <!--<Image.LayoutTransform>                            
+                            <RotateTransform Angle="{Binding Attributes[angle]}"/>
+                        </Image.LayoutTransform>-->
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    
+    <!--警用电动车-->
+    <esri:PictureMarkerSymbol x:Key="policeelecbike0" OffsetX="80" OffsetY="140"><!--online-->
+        <esri:PictureMarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Background="Blue" TextAlignment="Center" Text="{Binding Attributes[num]}"  Foreground="White"  FontSize="30" Margin="0" Grid.Row="0" Grid.Column="0"/>
+                    <Image Source="/images/icons/电动车b96.png" Grid.Row="1" Grid.Column="0" Height="96" Width="96" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <!--<Image.LayoutTransform>
+                            <RotateTransform Angle="{Binding Attributes[angle]}"/>
+                        </Image.LayoutTransform>-->
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:PictureMarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    
+    <esri:PictureMarkerSymbol x:Key="policeelecbike2" OffsetX="80" OffsetY="140">
+        <esri:PictureMarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Background="Blue" TextAlignment="Center" Text="{Binding Attributes[num]}"  Foreground="White"  FontSize="30" Margin="0" Grid.Row="0" Grid.Column="0"/>
+                    <Image Source="/images/icons/电动车a96.png" Grid.Row="1" Grid.Column="0" Height="96" Width="96" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <!--<Image.LayoutTransform>
+                            <RotateTransform Angle="{Binding Attributes[angle]}"/>
+                        </Image.LayoutTransform>-->
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:PictureMarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--警员-->
+    <esri:PictureMarkerSymbol x:Key="policeman0"  OffsetX="80" OffsetY="140">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Background="Blue" TextAlignment="Center"  Text="{Binding Attributes[num]}" Foreground="White" FontSize="30" Margin="0"/>
+                    <Image Source="/images/icons/人b96.png" Grid.Row="1" Grid.Column="0" Height="96" Width="96" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>    
+    
+    <esri:PictureMarkerSymbol x:Key="policeman1"  OffsetX="80" OffsetY="140">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="{Binding Attributes[num]}" TextAlignment="Center" Background="Blue"  Foreground="White" FontSize="30" Margin="0"/>
+                    <Image Source="/images/icons/人a96.png" Grid.Row="1" Grid.Column="0" Height="96" Width="96" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    
+    <!--社会车辆-->
+    <esri:PictureMarkerSymbol x:Key="socialcar0"  OffsetX="75" OffsetY="70">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <TextBlock  Background="Blue" Text="{Binding Attributes[num]}" Foreground="White"  FontStyle="Normal" FontSize="20" Margin="20,0,0,0"/>
+                    <Image  Source="/images/A_64b.png">
+                        <Image.LayoutTransform>
+                            <RotateTransform Angle="{Binding Attributes[angle]}"/>
+                        </Image.LayoutTransform>
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <esri:PictureMarkerSymbol x:Key="socialcar1"  OffsetX="75" OffsetY="70">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <TextBlock  Background="Blue" Text="{Binding Attributes[num]}" Foreground="White"  FontStyle="Normal" FontSize="20" Margin="20,0,0,0"/>
+                    <Image  Source="/images/B_64a.png">
+                        <Image.LayoutTransform>
+                            <RotateTransform Angle="{Binding Attributes[angle]}"/>
+                        </Image.LayoutTransform>
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--案件符号-->
+    <esri:PictureMarkerSymbol x:Key="AJSYM" OffsetX="174" OffsetY="104"><!--384/2,88+32/2-->
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel  Grid.Row="0">
+                        <StackPanel.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">                                
+                                <GradientStop Color="Black" Offset="1"/>
+                                <GradientStop Color="#FF68A8BD"/>
+                            </LinearGradientBrush>
+                        </StackPanel.Background>
+                        <TextBlock Margin="2" Text="{Binding Attributes[BJSJ],StringFormat='时间：{0:yyyy-MM-dd HH:mm}'}" Foreground="White" FontSize="30"/>
+                        <TextBlock  Margin="2" Text="{Binding Attributes[BJLX],StringFormat='类型：{0}'}" Foreground="White"  FontSize="30"/><!--<TextBlock Text="{Binding Attributes[AFDD],StringFormat=' {0}'}" Foreground="Red" FontSize="36"/>-->
+                    </StackPanel>
+                    <Image Margin="0,0,0,0"    Source="/images/AJ.png" Grid.Row="1"></Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+   
+    <LinearGradientBrush x:Key="PanelGradient_temp" EndPoint="0.5,1" StartPoint="0.5,0">
+        <LinearGradientBrush.RelativeTransform>
+            <TransformGroup>
+                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                <RotateTransform Angle="176" CenterY="0.5" CenterX="0.5"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </LinearGradientBrush.RelativeTransform>
+        <GradientStop Color="#FF145787" Offset="0.16"/>
+        <GradientStop Color="#FF3D7FAC" Offset="0.502"/>
+        <GradientStop Color="#FF88C5EF" Offset="0.984"/>
+    </LinearGradientBrush>
+
+    <!--摄像头图层-->
+    <esri:PictureMarkerSymbol x:Key="video">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <!--<TextBlock Text="{Binding Attributes[MC]}" Foreground="Red" FontSize="20"/>--><!--LPY 2015-1-27 17:50:53 注掉 排版混乱，字太多-->
+                    <Image Margin="0,0,0,0" Source="/images/sx_32.png"></Image>                   
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    
+    <esri:PictureMarkerSymbol x:Key="CJ_SP_PT">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <!--<TextBlock Text="{Binding Attributes[MC]}" Foreground="Red" FontSize="20"/>--><!--LPY 2015-1-27 17:50:53 注掉 排版混乱，字太多-->                    
+                    <Image Margin="0,0,0,0" Source="/images/sx_blue.png"></Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    
+    <!--位置点符号-->
+    <esri:PictureMarkerSymbol x:Key="LAYERSYMBOL">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <TextBlock Text="{Binding Attributes[MC]}" Foreground="Black" FontSize="20"/>
+                    <Image Margin="20,0,0,0" Source="/images/sx_blue.png"></Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    <!--网吧-->
+    <!--<esri:PictureMarkerSymbol x:Key="SYB_CS_WB"  OffsetX="75" OffsetY="70">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>
+                    <Image  Source="/images/网吧.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    金融
+    <esri:PictureMarkerSymbol x:Key="SYB_DW_JR"  OffsetX="75" OffsetY="70">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>
+                    <Image  Source="/images/金融机构.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    教育
+    <esri:PictureMarkerSymbol x:Key="SYB_DW_XX"  OffsetX="75" OffsetY="70">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>
+                    <Image  Source="/images/学校.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    医疗
+    <esri:PictureMarkerSymbol x:Key="SYB_DW_YL"  OffsetX="75" OffsetY="70">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>
+                    <Image  Source="/images/医疗.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    -->
+    <!--网吧-->
+    <esri:PictureMarkerSymbol x:Key="SYB_CS_WHCS_PT"  OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--<TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>-->
+                    <Image  Source="/images/icons/48/网吧48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    <!--消防水源-->
+    <esri:PictureMarkerSymbol x:Key="SYB_XF_XFSY_PT" OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--<TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>-->
+                    <Image  Source="/images/icons/48/消防设施48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    <!--党政机关-->
+    <esri:PictureMarkerSymbol x:Key="SYB_DW_DZJG_PT"  OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--<TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>-->
+                    <Image  Source="/images/icons/48/党政机关48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    <!--公安机关-->
+    <esri:PictureMarkerSymbol x:Key="SYB_DW_GAJG_PT" OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--<TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>-->
+                    <Image  Source="/images/icons/48/公安机关48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+    <!--ATM机-->
+    <esri:PictureMarkerSymbol x:Key="SYB_DW_JRZQ_PT"  OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--<TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>-->
+                    <Image  Source="/images/icons/48/金融证券48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--学校-->
+    <esri:PictureMarkerSymbol x:Key="SYB_DW_JY_PT"  OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--<TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>-->
+                    <Image  Source="/images/icons/48/教育48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--社区点-->
+    <esri:PictureMarkerSymbol x:Key="SYB_GA_SQD_PT"  OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>
+                    <Image  Source="/images/icons/48/社区村委48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--派出所边界-->
+    <esri:PictureMarkerSymbol x:Key="SYB_FQ_GAFJ_PG"  OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>
+                    <Image  Source="/images/icons/48/社区村委48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--黄岩辖区-->
+    <esri:PictureMarkerSymbol x:Key="SYB_FQ_JWXQ_PCS_PG"  OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>
+                    <Image  Source="/images/icons/48/社区村委48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--案发点-->
+    <esri:PictureMarkerSymbol x:Key="SYB_AFD"  OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>
+                    <Image  Source="/images/icons/48/社区村委48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--视频点-->
+    <esri:PictureMarkerSymbol x:Key="SYB_CJ_SP_PT"  OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--<TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>-->
+                    <Image  Source="/images/icons/48/视频48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--消防栓-->
+    <esri:PictureMarkerSymbol x:Key="SYB_XF_XFS_PT"  OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--<TextBlock Background="BlanchedAlmm" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>-->
+                    <Image  Source="/images/icons/48/消防设施48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--特种行业-->
+    <esri:PictureMarkerSymbol x:Key="SYB_ZA_TZHY_PT"  OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--<TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>-->
+                    <Image  Source="/images/icons/48/消防设施48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--宗教场所-->
+    <esri:PictureMarkerSymbol x:Key="SYB_CS_ZJCS_PT"  OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--<TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>-->
+                    <Image  Source="/images/icons/48/宗教场所48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--医院-->
+    <esri:PictureMarkerSymbol x:Key="SYB_DW_YLWS_PT"  OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--<TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>-->
+                    <Image  Source="/images/icons/48/医疗卫生48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--社区-->
+    <esri:PictureMarkerSymbol x:Key="SYB_XQ_SQ_CJ_PT"  OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>
+                    <Image  Source="/images/icons/48/医疗卫生48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--酒店旅馆-->
+    <esri:PictureMarkerSymbol x:Key="SYB_ZA_LDY_PT"  OffsetX="24" OffsetY="48">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--<TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="24" Margin="0"  Grid.Row="0" Grid.Column="0"/>-->
+                    <Image  Source="/images/icons/48/医疗卫生48.png" Grid.Row="1" Grid.Column="0">
+                    </Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--避灾点符号-->
+    <esri:PictureMarkerSymbol x:Key="pmsForBZD" OffsetX="150" OffsetY="120">
+        <esri:PictureMarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid Height="166" Width="300">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"></RowDefinition>
+                        <RowDefinition Height="96"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Background="Green" Text="{Binding Attributes[MC]}" Foreground="White" FontSize="48" TextAlignment="Center" Width="auto" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    <Image Source="/images/避灾点1.png" Grid.Row="1"></Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:PictureMarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--结果点符号-->
+
+    <esri:TextSymbol x:Key="ResultsSymbol" OffsetY="50">
+        <esri:TextSymbol.ControlTemplate>
+            <ControlTemplate>
+
+                <TextBlock Background="BlanchedAlmond" Text="{Binding Attributes[MC]}" Foreground="Black" FontStyle="Normal" FontSize="48"/>
+
+            </ControlTemplate>
+                   
+        </esri:TextSymbol.ControlTemplate>
+
+    </esri:TextSymbol>
+    <esri:PictureMarkerSymbol x:Key="ResultsSymbol2" OffsetX="24" OffsetY="80">
+        <esri:MarkerSymbol.ControlTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Margin="0,32,0,0" Background="Purple" Text="{Binding Attributes[MC]}" Foreground="Black"  FontStyle="Normal" FontSize="48"   Grid.Row="0" Grid.Column="0"/>
+                    <Image Margin="48,0,0,0" Source="/images/maps-pin.png" ></Image>
+                </Grid>
+            </ControlTemplate>
+        </esri:MarkerSymbol.ControlTemplate>
+    </esri:PictureMarkerSymbol>
+
+    <!--用户控件模板-->
+
+    <Style x:Key="BaseUCStyle" TargetType="{x:Type UserControl}">
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type UserControl}">
+                    <Grid SnapsToDevicePixels="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="75"></RowDefinition>
+                            <RowDefinition Height="116"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="77"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="165"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="800"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Grid Grid.Column="0">
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="..\images\baseUC\11.png"></ImageBrush>
+                                </Grid.Background>
+                            </Grid>
+
+                            <Grid Grid.Column="1">
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="..\images\baseUC\12.png"  Viewport="0,0 1,76" ViewportUnits="Absolute" TileMode="FlipX"></ImageBrush>
+                                </Grid.Background>
+                                
+                            </Grid>
+                            <Image Grid.Column="2" Source="..\images\baseUC\13.png" HorizontalAlignment="Left"></Image>
+                            
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="57"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="63"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="..\images\baseUC\21.png" Stretch="Fill" StretchDirection="Both"></Image>
+                            <Grid Grid.Column="1">
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="..\images\baseUC\22.png"  Viewport="0,0 1,1"  TileMode="FlipX" ></ImageBrush>
+                                </Grid.Background>
+                            </Grid>
+                            <Image Grid.Column="2" Source="..\images\baseUC\23.png" Stretch="Fill" StretchDirection="Both"></Image>
+                        </Grid>
+                        <Border Grid.Row="2"  BorderBrush="Red" BorderThickness="0" Margin="58,0,64,0">
+                            <Border.Background>
+                                <ImageBrush ImageSource="..\images\baseUC\32.png" Viewport="0,0 1,1" ViewportUnits="Absolute" TileMode="FlipXY"></ImageBrush>
+                            </Border.Background>
+                            <AdornerDecorator>
+                                <ContentPresenter>
+
+                                </ContentPresenter>
+                            </AdornerDecorator>
+                        </Border>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="58"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="64"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="..\images\baseUC\31.png" Viewport="0,0 58,1" ViewportUnits="Absolute" TileMode="FlipY"></ImageBrush>
+                                </Grid.Background>
+                            </Grid>
+                            <Border Grid.Column="1">
+                            </Border>
+                            <Grid Grid.Column="2">
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="..\images\baseUC\33.png" Viewport="0,0 64,1" ViewportUnits="Absolute" TileMode="FlipY"></ImageBrush>
+                                </Grid.Background>
+                            </Grid>
+
+
+                        </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="58"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="64"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="..\images\baseUC\41.png"></Image>
+                            <Grid Grid.Column="1">
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="..\images\baseUC\42.png" Viewport="0,0 1,77" ViewportUnits="Absolute" TileMode="FlipX"></ImageBrush>
+                                </Grid.Background>
+                            </Grid>
+                            <Image Grid.Column="2" Source="..\images\baseUC\43.png"></Image>
+                        </Grid>
+                        <TextBlock Grid.RowSpan="5" Margin="200,30,0,0" Text="{TemplateBinding Tag}" FontWeight="Bold" FontSize="120" Foreground="White">
+                            <TextBlock.Effect>
+                                <DropShadowEffect ShadowDepth="10"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Storyboard x:Key="StoryboardForPadMenuShow">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0"></DoubleAnimation>
+    </Storyboard>
+
+    <Storyboard x:Key="StoryboardForPadMenuClose">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0"></DoubleAnimation>
+    </Storyboard>
+
+    <Storyboard x:Key="StoryboardForPadMenuHidden">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:1" BeginTime="0:0:0" ></DoubleAnimation>
+    </Storyboard>
+
+    <Storyboard x:Key="StoryboardForMenuTwinkle">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0.5" Duration="0:0:0.3" AutoReverse="True" RepeatBehavior="3x"></DoubleAnimation>
+    </Storyboard>
+
+</ResourceDictionary>

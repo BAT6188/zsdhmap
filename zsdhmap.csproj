@@ -1,0 +1,647 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0998EFD1-D179-4CAD-BC9E-9E10566406BE}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>zsdpmap</RootNamespace>
+    <AssemblyName>zsdhmap</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <InstallDir>$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\ESRI\ArcGISRuntimeWPF1.0@InstallDir)</InstallDir>
+    <InstallDir64>$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\ESRI\ArcGISRuntimeWPF1.0@InstallDir)</InstallDir64>
+    <SDKReferences Condition="Exists('$(InstallDir)')">$(InstallDir)SDK\bin</SDKReferences>
+    <SDKReferences Condition="!Exists('$(InstallDir)')">$(InstallDir64)SDK\bin</SDKReferences>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>zsdpmap.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>map2.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Apache.NMS">
+      <HintPath>D:\ActiveMQ\lib\Apache.NMS\net-4.0\Apache.NMS.dll</HintPath>
+    </Reference>
+    <Reference Include="Apache.NMS.ActiveMQ">
+      <HintPath>D:\ActiveMQ\build\net-4.0\debug\Apache.NMS.ActiveMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Client, Version=10.2.2.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\ArcGIS SDKs\WPF10.2.2\sdk\bin\ESRI.ArcGIS.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Client.Local, Version=10.2.2.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL" />
+    <Reference Include="ESRI.ArcGIS.Client.Toolkit, Version=10.2.2.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL" />
+    <Reference Include="ESRI.ArcGIS.Client.Toolkit.DataSources, Version=10.2.2.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL" />
+    <Reference Include="log4net">
+      <HintPath>..\..\..\UseLog4Net\bin\Debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.94.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lpy\ActiveMQSender\ActiveMQSender\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="Application.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AJMSG.xaml.cs">
+      <DependentUpon>AJMSG.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AJ_INFOPAD_SMALL.xaml.cs">
+      <DependentUpon>AJ_INFOPAD_SMALL.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AJ_INFOPAD.xaml.cs">
+      <DependentUpon>AJ_INFOPAD.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CAR_INFOPAD.xaml.cs">
+      <DependentUpon>CAR_INFOPAD.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="classes\CarFilter.cs" />
+    <Compile Include="classes\ClusterLayers.cs" />
+    <Compile Include="classes\CMDOperator.cs" />
+    <Compile Include="classes\DllInvoke.cs" />
+    <Compile Include="classes\GeometryFunc.cs" />
+    <Compile Include="classes\GeomProc.cs" />
+    <Compile Include="classes\GeomServControl.cs" />
+    <Compile Include="classes\GlobalLayers.cs" />
+    <Compile Include="classes\LogHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\MovingTarget.cs" />
+    <Compile Include="classes\PublicVARS.cs" />
+    <Compile Include="classes\PUBLIC_SWITCH.cs" />
+    <Compile Include="classes\QueryLayer.cs" />
+    <Compile Include="classes\QueryWithBuffer.cs" />
+    <Compile Include="classes\ScanMainCar.cs" />
+    <Compile Include="classes\GPS.cs" />
+    <Compile Include="classes\SKInfo.cs" />
+    <Compile Include="classes\SumClusterer.cs" />
+    <Compile Include="classes\Traffic.cs" />
+    <Compile Include="classes\Util.cs" />
+    <Compile Include="classes\Daemon.cs" />
+    <Compile Include="classes\VideoToWall.cs" />
+    <Compile Include="interfaces\GeoMsg.cs" />
+    <Compile Include="classes\LocalGeometry.cs" />
+    <Compile Include="classes\MyTile.cs" />
+    <Compile Include="Logo_INFOPAD.xaml.cs">
+      <DependentUpon>Logo_INFOPAD.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="parts\PadMenu.xaml.cs">
+      <DependentUpon>PadMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="parts\SP_PADSPLD.xaml.cs">
+      <DependentUpon>SP_PADSPLD.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="parts\Tel_INFOPAD.xaml.cs">
+      <DependentUpon>Tel_INFOPAD.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="parts\YA_HTMLPad.xaml.cs">
+      <DependentUpon>YA_HTMLPad.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="parts\YA_ROADINFOPAD.xaml.cs">
+      <DependentUpon>YA_ROADINFOPAD.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QWSTATUS.xaml.cs">
+      <DependentUpon>QWSTATUS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="classes\TcpThread.cs" />
+    <Compile Include="SK_INFOPAD.xaml.cs">
+      <DependentUpon>SK_INFOPAD.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SP_INFOPAD.xaml.cs">
+      <DependentUpon>SP_INFOPAD.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XX_INFOPAD.xaml.cs">
+      <DependentUpon>XX_INFOPAD.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="YA_INFOPAD.xaml.cs">
+      <DependentUpon>YA_INFOPAD.xaml</DependentUpon>
+    </Compile>
+    <Page Include="AJMSG.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AJ_INFOPAD_SMALL.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AJ_INFOPAD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CAR_INFOPAD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="infowindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Logo_INFOPAD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Application.xaml.cs">
+      <DependentUpon>Application.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\crimepointcontrols.cs" />
+    <Compile Include="classes\featurelayercontrol.cs" />
+    <Compile Include="classes\gqyvideocontrol.cs" />
+    <Compile Include="classes\HeatMapLayercontrol.cs" />
+    <Compile Include="classes\linklinecontrol.cs" />
+    <Compile Include="classes\myheatmaplayer.cs" />
+    <Compile Include="infowindows.xaml.cs">
+      <DependentUpon>infowindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="mapwindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="parts\PadMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="parts\SP_PADSPLD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="parts\Tel_INFOPAD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="parts\YA_HTMLPad.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="parts\YA_ROADINFOPAD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QWSTATUS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SK_INFOPAD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SP_INFOPAD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="symbol\symbols.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XX_INFOPAD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="YA_INFOPAD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="classes\mapcontrol.cs" />
+    <Compile Include="classes\policepointcontrol.cs" />
+    <Compile Include="mapwindows.xaml.cs">
+      <DependentUpon>mapwindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\A_64b.png" />
+    <Resource Include="images\B_64a.png" />
+    <Resource Include="images\car1.png" />
+    <Resource Include="images\car2.png" />
+    <Resource Include="images\car3.png" />
+    <Resource Include="images\car4.png" />
+    <Resource Include="images\man1.png" />
+    <Resource Include="images\man2.png" />
+    <Resource Include="images\moto1.png" />
+    <Resource Include="images\moto2.png" />
+    <Resource Include="images\sx_32.png" />
+    <Resource Include="images\sx_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\sx_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\car0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\zhongdian.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\maps-pin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\yb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\zd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\ic_lock_airplane_mode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\医疗.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\网吧.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\金融机构.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Downloads.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\危化.png" />
+    <Resource Include="images\娱乐.png" />
+    <Resource Include="images\学校.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\AJ.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\green.png" />
+    <Resource Include="images\red.png" />
+    <Resource Include="images\yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\green48.png" />
+    <Resource Include="images\red48.png" />
+    <Resource Include="images\yellow48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\green36.png" />
+    <Resource Include="images\red36.png" />
+    <Resource Include="images\yellow36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\AJ24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icons\16\map_symbol_1.png" />
+    <Resource Include="images\icons\16\企事业单位16.png" />
+    <Resource Include="images\icons\16\党政机关16.png" />
+    <Resource Include="images\icons\16\公安机关16.png" />
+    <Resource Include="images\icons\16\医疗卫生16.png" />
+    <Resource Include="images\icons\16\危险品16.png" />
+    <Resource Include="images\icons\16\娱乐场所16.png" />
+    <Resource Include="images\icons\16\宗教场所16.png" />
+    <Resource Include="images\icons\16\教育16.png" />
+    <Resource Include="images\icons\16\文化场所16.png" />
+    <Resource Include="images\icons\16\服务场所16.png" />
+    <Resource Include="images\icons\16\民间协会16.png" />
+    <Resource Include="images\icons\16\汽修加油16.png" />
+    <Resource Include="images\icons\16\消防设施16.png" />
+    <Resource Include="images\icons\16\社区村委16.png" />
+    <Resource Include="images\icons\16\移动网络16.png" />
+    <Resource Include="images\icons\16\网吧16.png" />
+    <Resource Include="images\icons\16\金融证券16.png" />
+    <Resource Include="images\icons\24\map_symbol_1.png" />
+    <Resource Include="images\icons\24\企事业单位24.png" />
+    <Resource Include="images\icons\24\党政机关24.png" />
+    <Resource Include="images\icons\24\公安机关24.png" />
+    <Resource Include="images\icons\24\医疗卫生24.png" />
+    <Resource Include="images\icons\24\危险品24.png" />
+    <Resource Include="images\icons\24\娱乐场所24.png" />
+    <Resource Include="images\icons\24\宗教场所24.png" />
+    <Resource Include="images\icons\24\教育24.png" />
+    <Resource Include="images\icons\24\文化场所24.png" />
+    <Resource Include="images\icons\24\服务场所24.png" />
+    <Resource Include="images\icons\24\民间协会24.png" />
+    <Resource Include="images\icons\24\汽修加油24.png" />
+    <Resource Include="images\icons\24\消防设施24.png" />
+    <Resource Include="images\icons\24\社区村委24.png" />
+    <Resource Include="images\icons\24\移动网络24.png" />
+    <Resource Include="images\icons\24\网吧24.png" />
+    <Resource Include="images\icons\24\金融证券24.png" />
+    <Resource Include="images\icons\32\企事业单位32.png" />
+    <Resource Include="images\icons\32\党政机关32.png" />
+    <Resource Include="images\icons\32\公安机关32.png" />
+    <Resource Include="images\icons\32\医疗卫生32.png" />
+    <Resource Include="images\icons\32\危险品32.png" />
+    <Resource Include="images\icons\32\娱乐场所32.png" />
+    <Resource Include="images\icons\32\宗教场所32.png" />
+    <Resource Include="images\icons\32\教育32.png" />
+    <Resource Include="images\icons\32\文化场所32.png" />
+    <Resource Include="images\icons\32\服务场所32.png" />
+    <Resource Include="images\icons\32\民间协会32.png" />
+    <Resource Include="images\icons\32\汽修加油32.png" />
+    <Resource Include="images\icons\32\消防设施32.png" />
+    <Resource Include="images\icons\32\社区村委32.png" />
+    <Resource Include="images\icons\32\移动网络32.png" />
+    <Resource Include="images\icons\32\网吧32.png" />
+    <Resource Include="images\icons\32\视频32.png" />
+    <Resource Include="images\icons\32\金融证券32.png" />
+    <Resource Include="images\icons\48\企事业单位48.png" />
+    <Resource Include="images\icons\48\党政机关48.png" />
+    <Resource Include="images\icons\48\公安机关48.png" />
+    <Resource Include="images\icons\48\医疗卫生48.png" />
+    <Resource Include="images\icons\48\危险品48.png" />
+    <Resource Include="images\icons\48\娱乐场所48.png" />
+    <Resource Include="images\icons\48\宗教场所48.png" />
+    <Resource Include="images\icons\48\教育48.png" />
+    <Resource Include="images\icons\48\文化场所48.png" />
+    <Resource Include="images\icons\48\服务场所48.png" />
+    <Resource Include="images\icons\48\民间协会48.png" />
+    <Resource Include="images\icons\48\汽修加油48.png" />
+    <Resource Include="images\icons\48\消防设施48.png" />
+    <Resource Include="images\icons\48\社区村委48.png" />
+    <Resource Include="images\icons\48\移动网络48.png" />
+    <Resource Include="images\icons\48\网吧48.png" />
+    <Resource Include="images\icons\48\视频48.png" />
+    <Resource Include="images\icons\48\金融证券48.png" />
+    <Resource Include="images\icons\map_symbol_1.png" />
+    <Resource Include="images\icons\视频20.png" />
+    <Resource Include="images\icons\车图标\32\人a32.png" />
+    <Resource Include="images\icons\车图标\32\人b32.png" />
+    <Resource Include="images\icons\车图标\32\人c32.png" />
+    <Resource Include="images\icons\车图标\32\摩托车a32.png" />
+    <Resource Include="images\icons\车图标\32\摩托车b32.png" />
+    <Resource Include="images\icons\车图标\32\摩托车c32.png" />
+    <Resource Include="images\icons\车图标\32\车a32.png" />
+    <Resource Include="images\icons\车图标\32\车b32.png" />
+    <Resource Include="images\icons\车图标\32\车c32.png" />
+    <Resource Include="images\icons\车图标\48\人a48.png" />
+    <Resource Include="images\icons\车图标\48\人b48.png" />
+    <Resource Include="images\icons\车图标\48\人c48.png" />
+    <Resource Include="images\icons\车图标\48\摩托车a48.png" />
+    <Resource Include="images\icons\车图标\48\摩托车b48.png" />
+    <Resource Include="images\icons\车图标\48\摩托车c48.png" />
+    <Resource Include="images\icons\车图标\48\车a48.png" />
+    <Resource Include="images\icons\车图标\48\车b48.png" />
+    <Resource Include="images\icons\车图标\48\车c48.png" />
+    <Resource Include="images\icons\车图标\人a64.png" />
+    <Resource Include="images\icons\车图标\人b64.png" />
+    <Resource Include="images\icons\车图标\人c64.png" />
+    <Resource Include="images\icons\车图标\摩托车a64.png" />
+    <Resource Include="images\icons\车图标\摩托车b64.png" />
+    <Resource Include="images\icons\车图标\摩托车c64.png" />
+    <Resource Include="images\icons\车图标\车a64.png" />
+    <Resource Include="images\icons\车图标\车b64.png" />
+    <Resource Include="images\icons\车图标\车c64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icons\人a96.png" />
+    <Resource Include="images\icons\人b96.png" />
+    <Resource Include="images\icons\人c96.png" />
+    <Resource Include="images\icons\人d96.png" />
+    <Resource Include="images\icons\摩托车a96.png" />
+    <Resource Include="images\icons\摩托车b96.png" />
+    <Resource Include="images\icons\摩托车c96.png" />
+    <Resource Include="images\icons\摩托车d96.png" />
+    <Resource Include="images\icons\汽车a96.png" />
+    <Resource Include="images\icons\汽车b96.png" />
+    <Resource Include="images\icons\汽车c96.png" />
+    <Resource Include="images\icons\汽车d96.png" />
+    <Resource Include="images\icons\电动车a96.png" />
+    <Resource Include="images\icons\电动车b96.png" />
+    <Resource Include="images\icons\电动车c96.png" />
+    <Resource Include="images\icons\电动车d96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="map2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\民防1.png" />
+    <Resource Include="images\警务1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\1_a.png" />
+    <Resource Include="images\1_b.png" />
+    <Resource Include="images\2_a.png" />
+    <Resource Include="images\2_b.png" />
+    <Resource Include="images\公安2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <SplashScreen Include="StartScreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\baseUC\11.png" />
+    <Resource Include="images\baseUC\12.png" />
+    <Resource Include="images\baseUC\13.png" />
+    <Resource Include="images\baseUC\21.png" />
+    <Resource Include="images\baseUC\22.png" />
+    <Resource Include="images\baseUC\23.png" />
+    <Resource Include="images\baseUC\31.png" />
+    <Resource Include="images\baseUC\32.png" />
+    <Resource Include="images\baseUC\33.png" />
+    <Resource Include="images\baseUC\41.png" />
+    <Resource Include="images\baseUC\42.png" />
+    <Resource Include="images\baseUC\43.png" />
+    <Resource Include="images\baseUC\cor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\警务.png" />
+    <Resource Include="images\民防.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\避灾点1.png" />
+    <Content Include="images\menuNew\circleBig.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\circleMiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\menu2\list1a.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\menu2\list1b.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\menu2\list2a.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\menu2\list2b.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\mf\mf_a.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\mf\mf_b.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\mf\xz2_a.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\mf\xz2_b.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\ya\xz3_a.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\ya\xz3_b.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\ya\ya_a.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\ya\ya_b.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\zyz\xz1_a.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\zyz\xz1_b.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\zyz\zyz_a.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\zyz\zyz_b.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\menubg2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\menuNew\circleSmall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

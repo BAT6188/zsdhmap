@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="zsdpmap.parts.Tel_INFOPAD"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Tag="拨号信息"
+             Style="{StaticResource BaseUCStyle}"
+             d:DesignWidth="1600" d:DesignHeight="1200">
+    <UserControl.Resources>
+        <Style x:Key="tbStyle1" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="66"></Setter>
+            <Setter Property="Height" Value="100"></Setter>
+            <Setter Property="Width" Value="730"></Setter>
+            <Setter Property="Foreground" Value="Yellow"></Setter>
+            <Setter Property="Margin" Value="0,40,0,0"></Setter>
+            <Setter Property="TextBlock.Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="8"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="tbStyle2" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="96"></Setter>
+            <Setter Property="Height" Value="320"></Setter>
+            <Setter Property="Padding" Value="0,80"></Setter>
+            <Setter Property="TextAlignment" Value="Center"></Setter>
+            <Setter Property="TextBlock.Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="8"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <LinearGradientBrush x:Key="PanelGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+            <LinearGradientBrush.RelativeTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                    <RotateTransform Angle="176" CenterY="0.5" CenterX="0.5"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </LinearGradientBrush.RelativeTransform>
+            <GradientStop Color="#FF145787" Offset="0.16"/>
+            <GradientStop Color="#FF3D7FAC" Offset="0.502"/>
+            <GradientStop Color="#FF88C5EF" Offset="0.984"/>
+        </LinearGradientBrush>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"></RowDefinition>
+            <RowDefinition Height="960"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!--<Rectangle HorizontalAlignment="Left" Height="100" Stroke="Black" VerticalAlignment="Top" Width="1280" Grid.Row="0" Margin="0,0,0,0">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="1"/>
+                    <GradientStop Color="#FF68A8BD"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+            <Rectangle.Effect>
+                <DropShadowEffect ShadowDepth="10"/>
+            </Rectangle.Effect>
+        </Rectangle>
+        <TextBlock HorizontalAlignment="Left" Text="拨 号 信 息"  Name="tbTitle" Margin="36,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="75" Width="1200" FontSize="48" Foreground="White">
+            <TextBlock.Effect>
+                <DropShadowEffect ShadowDepth="10"/>
+            </TextBlock.Effect>
+        </TextBlock>-->
+
+        <Grid x:Name="gridMain" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="640"/>
+                <RowDefinition Height="320"/>
+            </Grid.RowDefinitions>
+            <Image Source="..\images\公安2.png"></Image>
+            <StackPanel Name="spContent" Grid.Column="1">
+                <TextBlock Text="{Binding [XM],   StringFormat='姓名：{0}'}" Style="{DynamicResource tbStyle1}"></TextBlock>
+                <!--{Binding [MC], StringFormat='监测站名称：{0}'}-->
+                <TextBlock Text="{Binding [LXDH], StringFormat='电话：{0}'}" Style="{DynamicResource tbStyle1}"></TextBlock>
+                <TextBlock Text="{Binding [ZW],   StringFormat='职务：{0}'}" Style="{DynamicResource tbStyle1}"></TextBlock>
+                <TextBlock Text="{Binding [GZDW], StringFormat='单位：{0}'}" Style="{DynamicResource tbStyle1}"></TextBlock>
+
+
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+                <TextBlock Name="tbDial" Foreground="Red" FontSize="66" Style="{DynamicResource tbStyle2}" Text=""></TextBlock>
+                <!--<TextBlock Name="tbTalk" Visibility="Collapsed" Foreground="Green" Style="{DynamicResource tbStyle2}"><Run>正在通话中...</Run></TextBlock>
+                <TextBlock Name="tbHangup" Visibility="Collapsed" Foreground="Green" Style="{DynamicResource tbStyle2}"><Run>通话已结束...</Run></TextBlock>-->
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
